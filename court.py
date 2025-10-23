@@ -16,10 +16,12 @@ class Court:
         court.title(COURT_TITLE)
         court.setup(COURT_LENGTH, COURT_WIDTH)
         court.bgcolor(COURT_COLOUR)
+        court.listen()
         self.paint_net()
         return court
 
-    def paint_net(self):
+    @staticmethod
+    def paint_net():
         """Paints a net in the centre of the court"""
         paint_roller = Turtle()
         paint_roller.hideturtle()
