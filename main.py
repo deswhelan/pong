@@ -1,3 +1,4 @@
+from ball import Ball
 from court import Court
 from paddle import Paddle
 
@@ -10,6 +11,8 @@ court.onkeypress(player_1_paddle.move_down, "s")
 player_2_paddle = Paddle(court, 2)
 court.onkeypress(player_2_paddle.move_up, "Up")
 court.onkeypress(player_2_paddle.move_down, "Down")
+
+ball = Ball(court)
 
 court.exitonclick()
 

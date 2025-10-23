@@ -7,16 +7,16 @@ class Paddle(Turtle):
     def __init__(self, court, player):
         super().__init__()
         self.court = court
-        self.shape("square")
-        self.penup()
         self.color(PADDLE_COLOUR)
-        self.left(90)
+        self.shape("square")
         # TODO: stretch - increase/decrease paddle size as game feature (e.g. power-ups)?
         self.shapesize(stretch_len=PADDLE_HEIGHT)
+        self.penup()
+        self.left(90)
         self.centre_to_end_offset = (PADDLE_HEIGHT * 20) / 2
-        self.go_to_starting_position(court, player)
+        self.go_to_starting_position(player)
 
-    def go_to_starting_position(self, court, player):
+    def go_to_starting_position(self, player):
         """Sends paddle to the appropriate baseline of the court"""
         if player == 1:
             baseline_offset = self.court.lower_boundary_xcor + 20
@@ -29,7 +29,7 @@ class Paddle(Turtle):
 
         # TODO: stretch - fix slight discrepancy in player 1 and player 2 buffers to screen edge
         self.goto(self.xcor() + baseline_offset, self.ycor())
-        court.update()
+        self.court.update()
 
     # TODO: stretch - fix slight boundary overshooting
     def move_up(self):
