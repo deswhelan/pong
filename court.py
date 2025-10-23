@@ -2,26 +2,28 @@ from turtle import Screen, Turtle
 
 COURT_COLOUR = "royal blue"
 COURT_LENGTH = 1000
+COURT_TITLE = "Pong"
 COURT_WIDTH = 600
+NET_COLOUR = "white"
 
-# TODO: create Court class
 class Court:
     def __init__(self):
         super().__init__()
-        self.create_court()
+        self.court = self.create_court()
 
     def create_court(self):
         court = Screen()
+        court.title(COURT_TITLE)
         court.setup(COURT_LENGTH, COURT_WIDTH)
         court.bgcolor(COURT_COLOUR)
         self.paint_net()
-        court.exitonclick()
+        return court
 
     def paint_net(self):
         """Paints a net in the centre of the court"""
         paint_roller = Turtle()
         paint_roller.hideturtle()
-        paint_roller.color("white")
+        paint_roller.color(NET_COLOUR)
         paint_roller.pensize(5)
         paint_roller.speed(100)
         paint_roller.penup()

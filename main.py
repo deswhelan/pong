@@ -1,10 +1,12 @@
 from court import Court
+from paddle import Paddle
 
-court = Court()
+court = Court().court
 
-# TODO: create Paddle class
-    # move paddle
-    # create second paddle
+player_paddle = Paddle()
+
+court.exitonclick()
+
 # TODO: create Ball class
     # make it move
     # detect collision with wall and bounce accordingly
