@@ -5,18 +5,19 @@ PADDLE_LENGTH = 3
 PADDLE_SEGMENT_HEIGHT = 20
 
 class Paddle:
-    def __init__(self):
+    def __init__(self, court):
         super().__init__()
+        self.court = court
         self.paddle = []
         self.set_starting_paddle(PADDLE_LENGTH)
 
+    # TODO: stretch - refactor so that paddle is one "tall" turtle instead of a list of segments
     @staticmethod
     def get_paddle_segment():
         """Creates and returns a paddle segment"""
         paddle_segment = Turtle("square")
         paddle_segment.penup()
         paddle_segment.color(PADDLE_COLOUR)
-        paddle_segment.speed(100)
         paddle_segment.left(90)
         return paddle_segment
 
@@ -45,6 +46,8 @@ class Paddle:
         for paddle_segment in reversed(self.paddle):
             paddle_segment.forward(20)
 
+        self.court.update()
+
     def move_down(self):
         if self.paddle[-1].ycor() <= -290:
             return
@@ -52,35 +55,44 @@ class Paddle:
         for paddle_segment in self.paddle:
             paddle_segment.backward(20)
 
+        self.court.update()
+
 # TODO: stretch - allow user to determine whether each player should be a Player (i.e. playable) paddle or a Computer (i.e. automated) paddle and update positioning/logic of child classes below accordingly
 class PlayerPaddle(Paddle):
-    def __init__(self):
-        super().__init__()
-        self.go_to_starting_position()
+    def __init__(self, court, player):
+        super().__init__(court)
+        self.go_to_starting_position(court, player)
 
     # TODO: stretch - use update/sleep to make paddle "appear"?
-    def go_to_starting_position(self):
+    def go_to_starting_position(self, court, player):
         """Sends player paddle to the starting position"""
+        baseline_offset = -480
+
+        if player == 2:
+            baseline_offset = 480
+
         for paddle_segment in self.paddle:
-            paddle_segment.goto(paddle_segment.xcor() - 480, paddle_segment.ycor() + 30)
+            paddle_segment.goto(paddle_segment.xcor() + baseline_offset, paddle_segment.ycor() + 30)
+        court.update()
 
-class ComputerPaddle(Paddle):
-    def __init__(self):
-        super().__init__()
-        self.go_to_starting_position()
-        self.play()
-
-    # TODO: stretch - use update/sleep to make paddle "appear"?
-    def go_to_starting_position(self):
-        """Sends player paddle to the starting position"""
-        for paddle_segment in self.paddle:
-            paddle_segment.goto(paddle_segment.xcor() + 480, paddle_segment.ycor() + 30)
-
-    def play(self):
-        """Makes the computer paddle "play" by automating its movement"""
-        while True:
-            while self.paddle[0].ycor() < 290:
-                self.move_up()
-
-            while self.paddle[-1].ycor() > -290:
-                self.move_down()
+# TODO: reintroduce automated/computer paddle
+# class ComputerPaddle(Paddle):
+#     def __init__(self, court):
+#         super().__init__(court)
+#         self.go_to_starting_position(court)
+#         self.play()
+#
+#     def go_to_starting_position(self, court):
+#         """Sends player paddle to the starting position"""
+#         for paddle_segment in self.paddle:
+#             paddle_segment.goto(paddle_segment.xcor() + 480, paddle_segment.ycor() + 30)
+#         court.update()
+#
+#     def play(self):
+#         """Makes the computer paddle "play" by automating its movement"""
+#         while True:
+#             while self.paddle[0].ycor() < 290:
+#                 self.move_up()
+#
+#             while self.paddle[-1].ycor() > -290:
+#                 self.move_down()

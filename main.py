@@ -1,13 +1,15 @@
 from court import Court
-from paddle import PlayerPaddle, ComputerPaddle
+from paddle import PlayerPaddle
 
 court = Court().court
 
-player_1_paddle = PlayerPaddle()
-court.onkeypress(player_1_paddle.move_up, "Up")
-court.onkeypress(player_1_paddle.move_down, "Down")
+player_1_paddle = PlayerPaddle(court, 1)
+court.onkeypress(player_1_paddle.move_up, "w")
+court.onkeypress(player_1_paddle.move_down, "s")
 
-player_2_paddle = ComputerPaddle()
+player_2_paddle = PlayerPaddle(court, 2)
+court.onkeypress(player_2_paddle.move_up, "Up")
+court.onkeypress(player_2_paddle.move_down, "Down")
 
 court.exitonclick()
 

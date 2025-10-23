@@ -17,7 +17,9 @@ class Court:
         court.setup(COURT_LENGTH, COURT_WIDTH)
         court.bgcolor(COURT_COLOUR)
         court.listen()
+        court.tracer(0)
         self.paint_net()
+        court.update()
         return court
 
     @staticmethod
