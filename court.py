@@ -6,10 +6,15 @@ COURT_TITLE = "Pong"
 COURT_WIDTH = 600
 NET_COLOUR = "white"
 
+# TODO: stretch - inherit Screen instead of using implementation below
 class Court:
     def __init__(self):
         super().__init__()
         self.court = self.create_court()
+        self.court.upper_boundary_ycor = (self.court.window_height() / 2)
+        self.court.lower_boundary_ycor = - self.court.upper_boundary_ycor
+        self.court.upper_boundary_xcor = (self.court.window_width() / 2)
+        self.court.lower_boundary_xcor = - self.court.upper_boundary_xcor
 
     def create_court(self):
         court = Screen()
