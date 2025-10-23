@@ -37,12 +37,18 @@ class Paddle:
         self.paddle.append(new_segment)
 
     # TODO: implement update/sleep to animate "smooth" paddle movement
-    # TODO: impose upper/lower court boundaries
+    # TODO: stretch - prevent paddle from overshooting boundaries when moving quickly
     def move_up(self):
+        if self.paddle[0].ycor() >= 290:
+            return
+
         for paddle_segment in reversed(self.paddle):
             paddle_segment.forward(20)
 
     def move_down(self):
+        if self.paddle[-1].ycor() <= -290:
+            return
+
         for paddle_segment in self.paddle:
             paddle_segment.backward(20)
 

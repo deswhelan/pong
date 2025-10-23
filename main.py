@@ -7,7 +7,6 @@ player_paddle = PlayerPaddle()
 court.onkeypress(player_paddle.move_up, "Up")
 court.onkeypress(player_paddle.move_down, "Down")
 
-
 court.exitonclick()
 
 # TODO: create Ball class
