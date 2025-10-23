@@ -52,7 +52,7 @@ class Paddle:
         for paddle_segment in self.paddle:
             paddle_segment.backward(20)
 
-# TODO: create second (i.e. "computer" and/or "player 2 (use WASD?)") paddle
+# TODO: stretch - allow user to determine whether each player should be a Player (i.e. playable) paddle or a Computer (i.e. automated) paddle and update positioning/logic of child classes below accordingly
 class PlayerPaddle(Paddle):
     def __init__(self):
         super().__init__()
@@ -63,3 +63,24 @@ class PlayerPaddle(Paddle):
         """Sends player paddle to the starting position"""
         for paddle_segment in self.paddle:
             paddle_segment.goto(paddle_segment.xcor() - 480, paddle_segment.ycor() + 30)
+
+class ComputerPaddle(Paddle):
+    def __init__(self):
+        super().__init__()
+        self.go_to_starting_position()
+        self.play()
+
+    # TODO: stretch - use update/sleep to make paddle "appear"?
+    def go_to_starting_position(self):
+        """Sends player paddle to the starting position"""
+        for paddle_segment in self.paddle:
+            paddle_segment.goto(paddle_segment.xcor() + 480, paddle_segment.ycor() + 30)
+
+    def play(self):
+        """Makes the computer paddle "play" by automating its movement"""
+        while True:
+            while self.paddle[0].ycor() < 290:
+                self.move_up()
+
+            while self.paddle[-1].ycor() > -290:
+                self.move_down()
