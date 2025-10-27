@@ -19,6 +19,7 @@ game_is_on = True
 while game_is_on:
     ball.move()
 
+    # bounce ball off sidelines
     if ball.ycor() >= (court.upper_boundary_ycor - 15) or ball.ycor() <= (court.lower_boundary_ycor + 15):
         ball.bounce_ball_off_wall()
 

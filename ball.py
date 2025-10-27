@@ -12,11 +12,8 @@ class Ball(Turtle):
         self.color("yellow")
         self.shape("circle")
         self.penup()
-        # always aim initial "serve" at corner of court
-        # self.left(30.96)
-        # TODO: restore angle above
-        self.left(80)
-        # self.right(80)
+        # set angle of initial "serve"
+        self.left(45)
 
     def move(self):
         time.sleep(0.01)
@@ -26,9 +23,8 @@ class Ball(Turtle):
     def bounce_ball_off_wall(self):
         current_direction = self.heading()
 
+        # TODO: stretch - investigate edge cases, e.g. heading exactly 180
         is_moving_right = (0 <= current_direction < 90 or 270 < current_direction <= 360)
-
-        # TODO: stretch - investigate edge case of heading exactly 180, and similar above
         is_moving_up = 0 < current_direction <= 180
 
         self.setheading(0)
@@ -39,5 +35,7 @@ class Ball(Turtle):
             else:
                 self.left(360 - current_direction)
         else:
-            # TODO: implement is_moving_left
-            pass
+            if is_moving_up:
+                self.left(- current_direction)
+            else:
+                self.right(current_direction)
