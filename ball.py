@@ -1,10 +1,6 @@
 import time
 from turtle import Turtle
 
-# detect collision with wall and bounce accordingly
-# detect collision with paddle
-# detect when paddle misses (i.e. collision with edge of screen
-
 class Ball(Turtle):
     def __init__(self, court):
         super().__init__()
@@ -15,6 +11,7 @@ class Ball(Turtle):
         # set angle of initial "serve"
         self.left(35)
 
+    # TODO: stretch randomise angle of serve
     def serve(self):
         player_2_is_serving = self.is_moving_right(self.heading())
 
@@ -27,9 +24,9 @@ class Ball(Turtle):
         else:
             self.setheading(35)
 
-    def move(self):
+    def move(self, ball_speed):
         time.sleep(0.01)
-        self.fd(6)
+        self.fd(ball_speed)
         self.court.update()
 
     @staticmethod
