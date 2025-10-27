@@ -19,14 +19,9 @@ game_is_on = True
 while game_is_on:
     ball.move()
 
-    if ball.ycor() >= (court.upper_boundary_ycor - 15):
-        ball.bounce_off_top_wall()
-
-    if ball.ycor() <= (court.lower_boundary_ycor + 15):
-        ball.bounce_off_bottom_wall()
-
+    if ball.ycor() >= (court.upper_boundary_ycor - 15) or ball.ycor() <= (court.lower_boundary_ycor + 15):
+        ball.bounce_ball_off_wall()
 
 court.exitonclick()
-
 
 # TODO: create Scoreboard class

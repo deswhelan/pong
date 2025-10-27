@@ -15,25 +15,29 @@ class Ball(Turtle):
         # always aim initial "serve" at corner of court
         # self.left(30.96)
         # TODO: restore angle above
-        # self.left(45)
-        self.right(80)
+        self.left(80)
+        # self.right(80)
 
     def move(self):
         time.sleep(0.01)
         self.fd(3)
         self.court.update()
 
-    #TODO consolidate into a single "bounce off wall" method?
-    def bounce_off_top_wall(self):
-        # TODO: handle moving right to left
-        original_direction = self.heading()
-        self.setheading(0)
-        self.right(original_direction)
+    def bounce_ball_off_wall(self):
+        current_direction = self.heading()
 
-    def bounce_off_bottom_wall(self):
-        # TODO: handle moving right to left
-        print("bouncing off bottom wall now")
-        original_direction = self.heading()
-        print(original_direction)
+        is_moving_right = (0 <= current_direction < 90 or 270 < current_direction <= 360)
+
+        # TODO: stretch - investigate edge case of heading exactly 180, and similar above
+        is_moving_up = 0 < current_direction <= 180
+
         self.setheading(0)
-        self.left(360 - original_direction)
+
+        if is_moving_right:
+            if is_moving_up:
+                self.right(current_direction)
+            else:
+                self.left(360 - current_direction)
+        else:
+            # TODO: implement is_moving_left
+            pass
