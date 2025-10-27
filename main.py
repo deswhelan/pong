@@ -14,11 +14,19 @@ court.onkeypress(player_2_paddle.move_down, "Down")
 
 ball = Ball(court)
 
+game_is_on = True
+
+while game_is_on:
+    ball.move()
+
+    if ball.ycor() >= (court.upper_boundary_ycor - 15):
+        ball.bounce_off_top_wall()
+
+    if ball.ycor() <= (court.lower_boundary_ycor + 15):
+        ball.bounce_off_bottom_wall()
+
+
 court.exitonclick()
 
-# TODO: create Ball class
-    # make it move
-    # detect collision with wall and bounce accordingly
-    # detect collision with paddle
-    # detect when paddle misses (i.e. collision with edge of screen
+
 # TODO: create Scoreboard class
