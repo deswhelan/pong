@@ -21,7 +21,11 @@ while game_is_on:
 
     # bounce ball off sidelines
     if ball.ycor() >= (court.upper_boundary_ycor - 15) or ball.ycor() <= (court.lower_boundary_ycor + 15):
-        ball.bounce_ball_off_wall()
+        ball.bounce_off_wall()
+
+    # bounce ball off paddles
+    if player_1_paddle.has_hit_ball(ball, 1) or player_2_paddle.has_hit_ball(ball, 2):
+        ball.bounce_off_paddle()
 
 court.exitonclick()
 

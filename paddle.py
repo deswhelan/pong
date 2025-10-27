@@ -48,6 +48,17 @@ class Paddle(Turtle):
         self.backward(20)
         self.court.update()
 
+    # TODO: stretch - refactor/simplify logic
+    def has_hit_ball(self, ball, player):
+        """Returns a boolean representing whether or not the paddle has hit the ball"""
+        if player == 1 and not ball.is_moving_right(ball.heading()):
+            return (ball.xcor() <= (self.xcor() + 20)) and (self.ycor() - self.centre_to_end_offset) <= ball.ycor() < (
+                        self.ycor() + self.centre_to_end_offset)
+        elif player == 2 and ball.is_moving_right(ball.heading()):
+            return (ball.xcor() >= (self.xcor() - 20)) and (self.ycor() - self.centre_to_end_offset) <= ball.ycor() < (self.ycor() + self.centre_to_end_offset)
+        else:
+            return False
+
 # TODO: reintroduce automated/computer paddle
 
 # TODO: stretch - allow user to determine whether each player should be a Player (i.e. playable) paddle or a Computer (i.e. automated) paddle

@@ -13,29 +13,50 @@ class Ball(Turtle):
         self.shape("circle")
         self.penup()
         # set angle of initial "serve"
-        self.left(45)
+        self.left(130)
 
     def move(self):
         time.sleep(0.01)
         self.fd(3)
         self.court.update()
 
-    def bounce_ball_off_wall(self):
+    @staticmethod
+    def is_moving_right(direction):
+        return 0 <= direction < 90 or 270 < direction <= 360
+
+    @staticmethod
+    def is_moving_up(direction):
+        return 0 < direction <= 180
+
+    # TODO: refactor/consolidate logic in both "bounce" methods
+    def bounce_off_wall(self):
         current_direction = self.heading()
-
-        # TODO: stretch - investigate edge cases, e.g. heading exactly 180
-        is_moving_right = (0 <= current_direction < 90 or 270 < current_direction <= 360)
-        is_moving_up = 0 < current_direction <= 180
-
         self.setheading(0)
 
-        if is_moving_right:
-            if is_moving_up:
+        if self.is_moving_right(current_direction):
+            if self.is_moving_up(current_direction):
                 self.right(current_direction)
             else:
                 self.left(360 - current_direction)
         else:
-            if is_moving_up:
-                self.left(- current_direction)
+            if self.is_moving_up(current_direction):
+                self.left(-current_direction)
             else:
                 self.right(current_direction)
+
+    def bounce_off_paddle(self):
+        current_direction = self.heading()
+        self.setheading(0)
+
+        if self.is_moving_right(current_direction):
+            if self.is_moving_up(current_direction):
+                self.left(180 - current_direction)
+            else:
+                self.right(current_direction - 180)
+        else:
+            if self.is_moving_up(current_direction):
+                self.right(180 + current_direction)
+            else:
+                print("bouncing")
+                self.left(180 - current_direction)
+
