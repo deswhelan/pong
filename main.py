@@ -27,6 +27,10 @@ while game_is_on:
     if player_1_paddle.has_hit_ball(ball, 1) or player_2_paddle.has_hit_ball(ball, 2):
         ball.bounce_off_paddle()
 
+    # restart game if ball goes out-of-bounds
+    if ball.xcor() >= court.upper_boundary_xcor or ball.xcor() <= court.lower_boundary_xcor:
+        ball.serve()
+
 court.exitonclick()
 
 # TODO: create Scoreboard class

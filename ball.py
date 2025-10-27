@@ -13,11 +13,23 @@ class Ball(Turtle):
         self.shape("circle")
         self.penup()
         # set angle of initial "serve"
-        self.left(130)
+        self.left(35)
+
+    def serve(self):
+        player_2_is_serving = self.is_moving_right(self.heading())
+
+        self.home()
+        self.court.update()
+        time.sleep(1)
+
+        if player_2_is_serving:
+            self.setheading(145)
+        else:
+            self.setheading(35)
 
     def move(self):
         time.sleep(0.01)
-        self.fd(3)
+        self.fd(6)
         self.court.update()
 
     @staticmethod
